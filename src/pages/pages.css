@@ -1,0 +1,62 @@
+.header {
+  height: 70px;
+  background-color: darkgray;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.row_games {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin: 0 auto;
+  padding: 0 100px;
+}
+
+.games_card {
+  width: 100%;
+  box-shadow: 6px 6px 9px 5px rgba(34, 60, 80, 0.2);
+  border-radius: 4px;
+}
+
+.games_card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.games_card_info {
+  padding: 0 20px;
+}
+.games_card_info h3 {
+  margin-bottom: 0;
+}
+.games_card_description {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.games_card_description li {
+  padding-bottom: 10px;
+}
+
+.games_card_description_group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.games_card_img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.row_game {
+  margin: 0 auto;
+  padding: 0 100px;
+  background-color: aquamarine;
+}
