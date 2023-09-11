@@ -1,9 +1,9 @@
 import {FC} from 'react'
 import {Link} from 'react-router-dom'
-import {GameStandalone} from '../../api/freeToGameApi'
+import {GameTypes} from '../../api/freeToGameApi'
 
 type GameCard = {
-  game: GameStandalone
+  game: GameTypes
 }
 export const CardGame: FC<GameCard> = ({game}) => {
   const gamePath = game.id

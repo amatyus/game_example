@@ -1,27 +1,35 @@
 import {useEffect, useState} from 'react'
 
 import BackButton from '../features/game/BackButton'
-import {GameCardInfo} from '../features/game/GameInfo'
+import {GameInfo} from '../features/game/GameInfo'
 import './pages.css'
 import {useParams} from 'react-router-dom'
-import {GameStandalone, getGame} from '../api/freeToGameApi'
+import {GameTypes, getGame} from '../api/freeToGameApi'
+import {GameDescription} from '../features/game/GameDescription'
+import {GameCarousel} from '../features/game/GameCarousel'
 
 const Game = () => {
   const {gameId} = useParams()
 
-  const [game, setGame] = useState<GameStandalone>()
-  console.log(game)
+  const [game, setGame] = useState<GameTypes>()
+
+  const someId = gameId || ''
 
   useEffect(() => {
-    getGame(gameId).then((data) => setGame(data))
-  }, [])
+    getGame(someId).then((data) => setGame(data))
+  }, [gameId])
 
-  return (
+  return game ? (
     <div className="row_game">
-      <BackButton />
-      <h1>{gameId}</h1>
-      <GameCardInfo game={gameId} />
+      <GameInfo game={game} />
+      <div className="game_descriptoin">
+        <BackButton />
+        <GameDescription game={game} />
+      </div>
+      <GameCarousel slides={game.screenshots} />
     </div>
+  ) : (
+    <div>Loading...</div>
   )
 }
 

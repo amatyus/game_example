@@ -1,17 +1,11 @@
-import {FC, useEffect, useState} from 'react'
-import {GameStandalone, GamesList, getGame} from '../../api/freeToGameApi'
+import {FC} from 'react'
+import {GameTypes} from '../../api/freeToGameApi'
+import {GameCardInfo} from './GameCardInfo'
 
 type GameProps = {
-  game: GameStandalone
+  game: GameTypes
 }
 
-export const GameCardInfo: FC<GameProps> = ({game}) => {
-  //   const [game, setGame] = useState<GamesList>([])
-  console.log(game)
-
-  //   useEffect(() => {
-  //     getGame(gameId).then((data) => setGame(data))
-  //   }, [game])
-
-  return null
+export const GameInfo: FC<GameProps> = ({game}) => {
+  return <GameCardInfo game={game} />
 }

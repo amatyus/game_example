@@ -1,11 +1,26 @@
 .header {
   height: 70px;
-  background-color: darkgray;
+  background-color: black;
+  color: white;
   align-items: center;
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  font-size: 30px;
+  font-size: 35px;
+}
+
+hr {
+  border: none;
+  background: gray;
+  height: 1px;
+}
+
+img {
+  width: 100%;
+}
+
+span {
+  font-weight: bold;
 }
 
 .row_games {
@@ -44,6 +59,8 @@
 .games_card_description_group {
   display: flex;
   justify-content: space-between;
+  list-style-type: none;
+  padding: 0;
 }
 
 .games_card_img {
@@ -56,7 +73,34 @@ a {
 }
 
 .row_game {
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 0 100px;
-  background-color: aquamarine;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.game_descriptoin {
+  grid-column: 2 / 4;
+}
+
+.btn {
+  margin: 2px 0;
+  border: solid 1px transparent;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  color: #ffffff;
+  background-color: #000;
+}
+
+.btn:active {
+  transform: translateY(1px);
+  filter: saturate(150%);
+}
+
+.btn:hover,
+.btn:focus {
+  color: #000;
+  border-color: currentColor;
+  background-color: white;
 }
