@@ -7,36 +7,11 @@ const options = {
   }
 }
 
-export type SystemRequirements = {
-  os: string
-  processor: string
-  memory: string
-  graphics: string
-  storage: string
-}
-
 export type Screenshots = {
   id: number
   image: string
 }
 
-// export type GameFull = {
-//   id: number
-//   title: string
-//   thumbnail: string
-//   status: string
-//   short_description: string
-//   description: string
-//   game_url: string
-//   genre: string
-//   platform: string
-//   publisher: string
-//   developer: string
-//   release_date: string
-//   freetogame_profile_url: string
-//   minimum_system_requirements: SystemRequirements
-//   screenshots: Array<Screenshots>
-// }
 export interface SystemRequirementsTypes {
   os: string
   processor: string
@@ -44,11 +19,6 @@ export interface SystemRequirementsTypes {
   graphics: string
   storage: string
 }
-
-// export interface ScreenshotTypes {
-//   id: number
-//   image: string
-// }
 
 export interface GameTypes {
   id: number
@@ -66,6 +36,12 @@ export interface GameTypes {
   freetogame_profile_url: string
   minimum_system_requirements: SystemRequirementsTypes
   screenshots: Array<Screenshots>
+}
+
+export type Filters = {
+  platform: string
+  category: string
+  sortBy: string
 }
 
 export type GamesList = Array<GameTypes>

@@ -1,8 +1,8 @@
 import {FC} from 'react'
-import {SystemRequirements} from '../../api/freeToGameApi'
+import {SystemRequirementsTypes} from '../../api/freeToGameApi'
 
 type SystemRequirementsProps = {
-  requirements: SystemRequirements
+  requirements: SystemRequirementsTypes
 }
 
 const GameSystemRequirements: FC<SystemRequirementsProps> = ({
