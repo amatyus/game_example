@@ -7,17 +7,29 @@ import {useParams} from 'react-router-dom'
 import {GameTypes, getGame} from '../api/freeToGameApi'
 import {GameDescription} from '../features/game/GameDescription'
 import {GameCarousel} from '../features/game/GameCarousel'
+import {useSelector} from 'react-redux'
+import {
+  gameIsLoadingSelector,
+  gameSelector
+} from '../storeProvider/gamesSelectors'
+import {useAppDispatch} from '../storeProvider/store'
 
 const Game = () => {
   const {gameId} = useParams()
+  const dispatch = useAppDispatch()
 
-  const [game, setGame] = useState<GameTypes>()
+  const game = useSelector(gameSelector)
+  const isLoading = useSelector(gameIsLoadingSelector)
 
   const someId = gameId || ''
 
   useEffect(() => {
-    getGame(someId).then((data) => setGame(data))
-  }, [gameId])
+    dispatch(getGame(someId))
+  }, [])
+
+  if (isLoading) {
+    return <div>"Loading"</div>
+  }
 
   return game ? (
     <div className="row_game">

@@ -113,22 +113,19 @@ export const getGamesList =
     const category = state.category === 'all' ? null : state.category
     const sortBy = state['sort-by']
 
-    const options = {
+    const optionsGame = {
+      ...options,
       method: 'GET',
       url: `${BASE_URL}/games`,
       params: {
         platform: platform,
         category: category,
         'sort-by': sortBy
-      },
-      headers: {
-        'X-RapidAPI-Key': 'fd27cf3a59mshf640d6ca0cba13ep1101ebjsn10e07035b761',
-        'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
       }
     }
     dispatch(gamesListActions.setIsLoading(true))
     try {
-      const response = await axios.request(options)
+      const response = await axios.request(optionsGame)
       dispatch(gamesListActions.setGame(response.data))
       dispatch(gamesListActions.setIsLoading(false))
     } catch (error) {
@@ -138,17 +135,26 @@ export const getGamesList =
     }
   }
 
-export async function getGame(param: string) {
-  let optionsGame = {
-    ...options,
-    params: {
-      id: param
+export const getGame =
+  (param: string) =>
+  async (dispatch: AppDispatch, getState: () => StateSchema) => {
+    const optionsGame = {
+      ...options,
+      method: 'GET',
+      url: `${BASE_URL}/game`,
+      params: {
+        id: param
+      }
+    }
+    dispatch(gamesListActions.setIsLoading(true))
+
+    try {
+      const response = await axios.request(optionsGame)
+      dispatch(gamesListActions.setGame(response.data))
+      dispatch(gamesListActions.setIsLoading(false))
+    } catch (error) {
+      const errorString = String(error)
+      dispatch(gamesListActions.setError(errorString))
+      dispatch(gamesListActions.setIsLoading(false))
     }
   }
-  try {
-    const response = await axios.get(`${BASE_URL}/game`, optionsGame)
-    return response.data
-  } catch (error) {
-    console.error(error)
-  }
-}

@@ -15,25 +15,23 @@ const Games = () => {
   const games = useSelector(gamesListSelector)
   const isLoading = useSelector(gamesIsLoadingSelector)
 
-  console.log(isLoading)
-
   useEffect(() => {
     dispatch(getGamesList())
   }, [])
 
-  console.log(games)
+  if (isLoading) {
+    return <div>"Loading"</div>
+  }
 
   return (
     <>
       <header className="header">Free to Play</header>
-      {!isLoading ? (
+      {games && (
         <div className="row_games">
           {games.map((game) => (
             <CardGame key={game.id} game={game} />
           ))}
         </div>
-      ) : (
-        'Loading...'
       )}
     </>
   )

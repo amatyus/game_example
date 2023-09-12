@@ -8,7 +8,7 @@ const initialState: GameListSchema = {
   games: null,
   category: 'all',
   platform: 'all',
-  'sort-by': 'release-date'
+  'sort-by': 'relevance'
 }
 
 const gameslistSlice = createSlice({
