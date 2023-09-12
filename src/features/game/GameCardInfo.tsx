@@ -19,7 +19,7 @@ export const GameCardInfo: FC<GameProps> = ({game}) => {
           {isAvailableRequirements ? (
             <h2>Minimum System Requirements</h2>
           ) : (
-            game.title
+            <h2>{game.title}</h2>
           )}
           {isAvailableRequirements ? (
             <GameSystemRequirements

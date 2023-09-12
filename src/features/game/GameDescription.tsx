@@ -19,7 +19,7 @@ export const GameDescription: FC<GameDescriptionProps> = ({game}) => {
           <span>Publisher:</span> {game.publisher}
         </li>
         <li>
-          <span>Release date:</span>{' '}
+          <span>Release date:</span>
           {new Date(game.release_date).toLocaleDateString()}
         </li>
         <li>

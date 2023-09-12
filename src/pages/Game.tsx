@@ -26,7 +26,9 @@ const Game = () => {
         <BackButton />
         <GameDescription game={game} />
       </div>
-      <GameCarousel slides={game.screenshots} />
+      <div className="game_carousel">
+        <GameCarousel slides={game.screenshots} />
+      </div>
     </div>
   ) : (
     <div>Loading...</div>

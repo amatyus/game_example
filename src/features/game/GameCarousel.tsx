@@ -1,7 +1,7 @@
 import {FC} from 'react'
-import {Swiper, SwiperSlide} from 'swiper/react'
+import {Carousel, Image} from 'antd'
+
 import {Screenshots} from '../../api/freeToGameApi'
-import './game.modules.css'
 
 type GameCarouselProps = {
   slides: Array<Screenshots>
@@ -9,17 +9,12 @@ type GameCarouselProps = {
 
 export const GameCarousel: FC<GameCarouselProps> = ({slides}) => {
   console.log(slides)
+
   return (
-    <Swiper
-      className="swiper_image"
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
+    <Carousel>
       {slides.map(({id, image}) => (
-        <SwiperSlide key={id}>
-          <img src={image} alt={image} />
-        </SwiperSlide>
+        <Image key={id} src={image} />
       ))}
-    </Swiper>
+    </Carousel>
   )
 }

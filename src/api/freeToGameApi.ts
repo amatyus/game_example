@@ -1,4 +1,9 @@
 import axios from 'axios'
+import {AppDispatch} from '../storeProvider/store'
+import {StateSchema} from '../storeProvider/StateSchema'
+import {gamesListActions} from '../storeProvider/gamesListSlice'
+
+const BASE_URL = 'https://free-to-play-games-database.p.rapidapi.com/api'
 
 const options = {
   headers: {
@@ -38,25 +43,100 @@ export interface GameTypes {
   screenshots: Array<Screenshots>
 }
 
-export type Filters = {
-  platform: string
-  category: string
-  sortBy: string
+export type PlatformField = 'pc' | 'browser' | 'all'
+
+export type CategoryField =
+  | 'mmorpg'
+  | 'shooter'
+  | 'strategy'
+  | 'moba'
+  | 'racing'
+  | 'sports'
+  | 'social'
+  | 'sandbox'
+  | 'open-world'
+  | 'survival'
+  | 'pvp'
+  | 'pve'
+  | 'pixel'
+  | 'voxel'
+  | 'zombie'
+  | 'turn-based'
+  | 'first-person'
+  | 'third-Person'
+  | 'top-down'
+  | 'tank'
+  | 'space'
+  | 'sailing'
+  | 'side-scroller'
+  | 'superhero'
+  | 'permadeath'
+  | 'card'
+  | 'battle-royale'
+  | 'mmo'
+  | 'mmofps'
+  | 'mmotps'
+  | '3d'
+  | '2d'
+  | 'anime'
+  | 'fantasy'
+  | 'sci-fi'
+  | 'fighting'
+  | 'action-rpg'
+  | 'action'
+  | 'military'
+  | 'martial-arts'
+  | 'flight'
+  | 'low-spec'
+  | 'tower-defense'
+  | 'horror'
+  | 'mmorts'
+
+export type SortByField =
+  | 'release-date'
+  | 'popularity'
+  | 'alphabetical'
+  | 'relevance'
+
+export type FiltersProps = {
+  platform: PlatformField
+  category: CategoryField
+  sortBy: SortByField
 }
 
 export type GamesList = Array<GameTypes>
 
-export async function getGames() {
-  try {
-    const response = await axios.get(
-      'https://free-to-play-games-database.p.rapidapi.com/api/games',
-      options
-    )
-    return response.data
-  } catch (error) {
-    console.error(error)
+export const getGamesList =
+  () => async (dispatch: AppDispatch, getState: () => StateSchema) => {
+    const state = getState().gamesList
+    const platform = state.platform === 'all' ? null : state.platform
+    const category = state.category === 'all' ? null : state.category
+    const sortBy = state['sort-by']
+
+    const options = {
+      method: 'GET',
+      url: `${BASE_URL}/games`,
+      params: {
+        platform: platform,
+        category: category,
+        'sort-by': sortBy
+      },
+      headers: {
+        'X-RapidAPI-Key': 'fd27cf3a59mshf640d6ca0cba13ep1101ebjsn10e07035b761',
+        'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
+      }
+    }
+    dispatch(gamesListActions.setIsLoading(true))
+    try {
+      const response = await axios.request(options)
+      dispatch(gamesListActions.setGame(response.data))
+      dispatch(gamesListActions.setIsLoading(false))
+    } catch (error) {
+      const errorString = String(error)
+      dispatch(gamesListActions.setError(errorString))
+      dispatch(gamesListActions.setIsLoading(false))
+    }
   }
-}
 
 export async function getGame(param: string) {
   let optionsGame = {
@@ -66,10 +146,7 @@ export async function getGame(param: string) {
     }
   }
   try {
-    const response = await axios.get(
-      `https://free-to-play-games-database.p.rapidapi.com/api/game`,
-      optionsGame
-    )
+    const response = await axios.get(`${BASE_URL}/game`, optionsGame)
     return response.data
   } catch (error) {
     console.error(error)
