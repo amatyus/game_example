@@ -1,4 +1,9 @@
-import {GameTypes, PlatformField, SortByField} from '../api/freeToGameApi'
+import {
+  CategoryField,
+  GameTypes,
+  PlatformField,
+  SortByField
+} from '../api/freeToGameApi'
 
 export interface StateSchema {
   gamesList: GameListSchema
@@ -15,7 +20,7 @@ export interface GameListSchema {
   error: string | undefined
   isLoading: boolean
   games: GameTypes[] | null
-  category: string
+  category: CategoryField
   'sort-by': SortByField
   platform: PlatformField
 }

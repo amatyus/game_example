@@ -8,8 +8,6 @@ type GameCarouselProps = {
 }
 
 export const GameCarousel: FC<GameCarouselProps> = ({slides}) => {
-  console.log(slides)
-
   return (
     <Carousel>
       {slides.map(({id, image}) => (

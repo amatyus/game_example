@@ -8,6 +8,7 @@ import {
   gamesListSelector,
   gamesIsLoadingSelector
 } from '../storeProvider/gamesSelectors'
+import {GamesFilters} from '../features/gameList/GamesFilters'
 
 const Games = () => {
   const dispatch = useAppDispatch()
@@ -26,6 +27,7 @@ const Games = () => {
   return (
     <>
       <header className="header">Free to Play</header>
+      <GamesFilters />
       {games && (
         <div className="row_games">
           {games.map((game) => (

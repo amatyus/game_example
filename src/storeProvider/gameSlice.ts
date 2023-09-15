@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 import {GameSchema} from './StateSchema'
 
 const initialState: GameSchema = {
@@ -11,8 +11,14 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    addGame: (state, action) => {
+    setGame: (state, action) => {
       state.game = action.payload
+    },
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload
+    },
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload
     }
   }
 })

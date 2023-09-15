@@ -1,4 +1,9 @@
-import {GamesList} from './../api/freeToGameApi'
+import {
+  CategoryField,
+  GamesList,
+  PlatformField,
+  SortByField
+} from './../api/freeToGameApi'
 import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 import {GameListSchema} from './StateSchema'
 
@@ -23,6 +28,15 @@ const gameslistSlice = createSlice({
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload
+    },
+    setCategory: (state, action: PayloadAction<CategoryField>) => {
+      state.category = action.payload
+    },
+    setSort: (state, action: PayloadAction<SortByField>) => {
+      state['sort-by'] = action.payload
+    },
+    setPlatform: (state, action: PayloadAction<PlatformField>) => {
+      state.platform = action.payload
     }
   }
 })

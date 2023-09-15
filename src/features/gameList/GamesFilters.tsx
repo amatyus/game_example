@@ -1,29 +1,64 @@
-import {useState, type PropsWithChildren} from 'react'
-// import {GameFilter} from './GameFilter'
-import {useDispatch} from 'react-redux'
-// import { PlatformField, SortBy, fetchGamesList } from './StoreProvider/fetchGamesList';
+import {useSelector} from 'react-redux'
+import {
+  gamesCategoryFiltersSelector,
+  gamesPlatformFiltersSelector,
+  gamesSortFiltersSelector
+} from '../../storeProvider/gamesSelectors'
+import {allCategory, allPlatforms, allSortBy} from './utils'
+import SelectFilter from './SelectFilter'
+import {
+  CategoryField,
+  PlatformField,
+  SortByField,
+  getGamesList
+} from '../../api/freeToGameApi'
+import {useAppDispatch} from '../../storeProvider/store'
+import {gamesListActions} from '../../storeProvider/gamesListSlice'
+import './gameList.css'
 
-interface GameFiltersProps {
-  className?: string
-}
+export const GamesFilters = () => {
+  const category = useSelector(gamesCategoryFiltersSelector)
+  const platform = useSelector(gamesPlatformFiltersSelector)
+  const sort = useSelector(gamesSortFiltersSelector)
 
-export function GameFilters(props: PropsWithChildren<GameFiltersProps>) {
-  // const { className } = props;
-  // const [category, setCategory] = useState(null)
-  // const [platform, setPlatform] = useState(null)
-  // const [sort, setSort] = useState(SortBy.RELEASE_DATE)
-  // const dispatch: any = useDispatch()
+  const dispatch = useAppDispatch()
 
-  // const handleChangePlatform = (item: PlatformField) => {
-  //     setPlatform(item)
-  //     dispatch(fetchGamesList({platform: item, category, sortBy: sort}))
-  // }
+  const handleChangeSort = (sort: SortByField) => {
+    dispatch(gamesListActions.setSort(sort))
+    dispatch(getGamesList())
+  }
+
+  const handleChangePlatform = (platform: PlatformField) => {
+    dispatch(gamesListActions.setPlatform(platform))
+    dispatch(getGamesList())
+  }
+
+  const handleChangeCategory = (category: CategoryField) => {
+    dispatch(gamesListActions.setCategory(category))
+    dispatch(getGamesList())
+  }
 
   return (
-    <div className={'GameFilters'}>
-      {/* <GameFilter<PlatformField> value={platform} onChange={handleChangePlatform}/> */}
-      {/* <select name="sort" id="" value={sort}></select> */}
-      {/* <select name="category" id="" value={categoty}></select> */}
-    </div>
+    <>
+      <div className="row-filters">
+        <SelectFilter<PlatformField>
+          options={allPlatforms}
+          value={platform}
+          onSelect={handleChangePlatform}
+        />
+
+        <SelectFilter<CategoryField>
+          options={allCategory}
+          value={category}
+          onSelect={handleChangeCategory}
+        />
+
+        <SelectFilter<SortByField>
+          options={allSortBy}
+          value={sort}
+          onSelect={handleChangeSort}
+        />
+      </div>
+    </>
   )
 }

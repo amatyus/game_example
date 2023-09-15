@@ -2,6 +2,7 @@ import axios from 'axios'
 import {AppDispatch} from '../storeProvider/store'
 import {StateSchema} from '../storeProvider/StateSchema'
 import {gamesListActions} from '../storeProvider/gamesListSlice'
+import {gameActions} from '../storeProvider/gameSlice'
 
 const BASE_URL = 'https://free-to-play-games-database.p.rapidapi.com/api'
 
@@ -46,6 +47,7 @@ export interface GameTypes {
 export type PlatformField = 'pc' | 'browser' | 'all'
 
 export type CategoryField =
+  | 'all'
   | 'mmorpg'
   | 'shooter'
   | 'strategy'
@@ -146,15 +148,15 @@ export const getGame =
         id: param
       }
     }
-    dispatch(gamesListActions.setIsLoading(true))
+    dispatch(gameActions.setIsLoading(true))
 
     try {
       const response = await axios.request(optionsGame)
-      dispatch(gamesListActions.setGame(response.data))
-      dispatch(gamesListActions.setIsLoading(false))
+      dispatch(gameActions.setGame(response.data))
+      dispatch(gameActions.setIsLoading(false))
     } catch (error) {
       const errorString = String(error)
-      dispatch(gamesListActions.setError(errorString))
-      dispatch(gamesListActions.setIsLoading(false))
+      dispatch(gameActions.setError(errorString))
+      dispatch(gameActions.setIsLoading(false))
     }
   }
